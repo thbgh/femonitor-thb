@@ -4,14 +4,14 @@ export function injectXHR() {
 	// console.log("injectXHR");
 	let XMLHttpRequest = window.XMLHttpRequest;
 	let oldOpen = XMLHttpRequest.prototype.open;
-	XMLHttpRequest.prototype.open = function (method, url, async) {
-		this.logData = { method, url, async };
+	XMLHttpRequest.prototype.open = function (method, apiUrl, async) {
+		this.logData = { method, apiUrl, async };
 		return oldOpen.apply(this, arguments);
 	};
 	let oldSend = XMLHttpRequest.prototype.send;
 	XMLHttpRequest.prototype.send = function (body) {
 		let startTime = Date.now();
-		if (this.logData.url.indexOf("logstore/track") === -1) {
+		if (this.logData.apiUrl.indexOf("logstore/track") === -1) {
 			// 屏蔽掉上报请求本上
 			let handler = (type) => (event) => {
 				let duration = Date.now() - startTime;
@@ -22,7 +22,7 @@ export function injectXHR() {
 					status: this.status,
 					statusText: this.statusText,
 					kind: "stability", //监控指标的大类
-					type: "APIError", // 资源加载错误
+					type: "APIError", // 接口请求错误
 				};
 
 				// console.log("%c [ logData ]-25", "font-size:14px; background:pink; color:#bf2c9f;", this.logData);
