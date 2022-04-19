@@ -1,7 +1,7 @@
 import trackSend from "../utills/track";
 export function injectXHR() {
 	// 改写 window.XMLHttpRequest,监听自定义接口请求错误
-	console.log("injectXHR");
+	// console.log("injectXHR");
 	let XMLHttpRequest = window.XMLHttpRequest;
 	let oldOpen = XMLHttpRequest.prototype.open;
 	XMLHttpRequest.prototype.open = function (method, url, async) {
@@ -22,7 +22,7 @@ export function injectXHR() {
 					statusText: this.statusText,
 				};
 
-				console.log("%c [ logData ]-25", "font-size:14px; background:pink; color:#bf2c9f;", this.logData);
+				// console.log("%c [ logData ]-25", "font-size:14px; background:pink; color:#bf2c9f;", this.logData);
 				this.status !== 200 && trackSend(this.logData); // 上报数据
 			};
 			this.addEventListener("load", handler("load"), false); // 请求成功

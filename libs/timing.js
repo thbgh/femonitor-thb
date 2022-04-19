@@ -1,8 +1,7 @@
 import trackSend from "../utills/track";
 export function timing() {
-	console.log("timing");
 	window.addEventListener("load", (event) => {
-		console.log("timing", performance.timing);
+        // console.log('%c [ performance.timing ]-5', 'font-size:14px; background:pink; color:#bf2c9f;', performance.timing)
 		if (!performance.timing) {
 			console.log("你的浏览器不支持 performance 接口");
 			return;
@@ -24,7 +23,7 @@ export function timing() {
 			kind: "experience", // 用户体验指标
 			type: "timing", // 统计每个阶段的时间
 			connectTime: connectEnd - connectStart, // 连接时间
-			ttfbTime: responseStart - requestStart, // 首字节到达时间
+			ttfbTime: responseStart - requestStart, // 首字节到达用时
 			responseTime: responseEnd - responseStart, //响应耗时
 			parseDOMTime: loadEventStart - domLoading, //DOM解析时间
 			domContentLoadedTime: domContentLoadedEventEnd - domContentLoadedEventStart, // DOM加载用时(区别于load事件)

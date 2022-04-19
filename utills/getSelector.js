@@ -18,4 +18,5 @@ export default function (path) {
 	if (Array.isArray(path)) {
 		return getSelector(path);
 	}
+	return getSelector([path]);
 }
